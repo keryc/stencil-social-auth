@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Stencil Component Starter</title>
+  <script src="/build/stencil-social-auth.js"></script>
+</head>
+<body>
+
+  <stencil-social-auth dev="true" provider="facebook">
+  	<button>Login with Facebook</button>
+  </stencil-social-auth>
+
+  <hr>
+  <stencil-social-auth dev="true" provider="google">
+    <button>Login with Google</button>
+  </stencil-social-auth>
+
+  <script>
+	  const facebook = document.querySelector('stencil-social-auth[provider="facebook"]');
+	  facebook.config = {
+	  	clientId: "2224506754495239",
+      backendUrl: 'http://localhost:8000/api/login/social/token/facebook/', 
+	  };
+    /*facebook.config = {
+      clientId: "2224506754495239",
+      responseType: 'token',
+    };*/
+
+    const google = document.querySelector('stencil-social-auth[provider="google"]');
+    google.config = {
+      clientId: "850141803779-sv9n4u5udq4s2476hb6so1co7t0sukio.apps.googleusercontent.com",
+      responseType: "code",
+      backendUrl: 'http://localhost:8000/api/login/social/token/google-oauth2/',
+    };
+
+    async function load() {
+      const is_authenticated = await google.isAuthenticated()
+      console.log(is_authenticated)
+    }
+    window.onload = load;
+
+    //NOTE: BACKEND FOR: https://github.com/st4lk/django-rest-social-auth
+	</script>
+
+</body>
+</html>
